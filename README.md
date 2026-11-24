@@ -95,4 +95,4 @@ Tested with n8n 2.49 and Node.js 24.
 
 ## License
 
-[MIT](LICENSE.md)
+[MIT](LICENSE)
