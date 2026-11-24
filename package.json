@@ -1,14 +1,18 @@
 {
 	"name": "@atendevet/n8n-nodes-atendevet",
-	"version": "0.1.0",
-	"description": "Connect n8n to Atendevet, the veterinary clinic platform: query the clinic, propose records for approval and start workflows from clinic events.",
+	"version": "0.1.1",
+	"description": "Nós oficiais do Atendevet para o n8n: gatilho com os eventos da clínica (agendamento, pagamento, vacina, lead) e leitura de pacientes, vendas, relatórios e CRM. Agente de IA pelo MCP.",
 	"license": "MIT",
 	"homepage": "https://github.com/atendevet/n8n-nodes-atendevet#readme",
 	"keywords": [
 		"n8n-community-node-package",
+		"n8n",
+		"n8n-nodes",
 		"atendevet",
+		"veterinaria",
 		"veterinary",
-		"clinic",
+		"clinica-veterinaria",
+		"automacao",
 		"mcp"
 	],
 	"author": {
@@ -17,7 +21,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/atendevet/n8n-nodes-atendevet.git"
+		"url": "git+https://github.com/atendevet/n8n-nodes-atendevet.git"
 	},
 	"scripts": {
 		"build": "n8n-node build",

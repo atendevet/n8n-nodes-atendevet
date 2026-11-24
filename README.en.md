@@ -2,7 +2,7 @@
 
 [Português](README.md) · **English**
 
-Official n8n nodes for [Atendevet](https://www.atendevet.com.br), the management platform for veterinary clinics, hospitals and home-visit vets in Brazil.
+Official [Atendevet](https://www.atendevet.com.br) nodes for n8n. Atendevet is the management platform for veterinary clinics, hospitals and home-visit vets in Brazil.
 
 - **Atendevet Trigger** starts a workflow when something happens in the clinic: an appointment is booked, a payment is received, a vaccine is due, a document is signed, a new CRM lead arrives and about 40 other events.
 - **Atendevet** reads clinic data in a workflow step: patients, clients (legal guardians), sales, sales reports, CRM leads, document templates and signature status. It also works as a tool for the n8n AI Agent.

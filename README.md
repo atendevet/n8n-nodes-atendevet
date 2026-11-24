@@ -2,7 +2,7 @@
 
 **Português** · [English](README.en.md)
 
-Nós oficiais do n8n para o [Atendevet](https://www.atendevet.com.br), o sistema de gestão de clínicas, hospitais e médicos-veterinários de atendimento domiciliar.
+Nós oficiais do [Atendevet](https://www.atendevet.com.br) para o n8n. O Atendevet é o sistema de gestão de clínicas, hospitais e médicos-veterinários de atendimento domiciliar.
 
 - **Atendevet Trigger** começa um fluxo quando algo acontece na clínica: um agendamento é marcado, um pagamento é recebido, uma vacina está para vencer, um documento é assinado, chega um lead novo no CRM e cerca de 40 outros eventos.
 - **Atendevet** lê os dados da clínica num passo do fluxo: pacientes, responsáveis legais, vendas, relatórios de vendas, leads do CRM, modelos de documento e a situação da assinatura de documentos. Também funciona como ferramenta do agente de IA do n8n.
