@@ -83,7 +83,7 @@ export class AtendevetTrigger implements INodeType {
 			},
 			{
 				displayName:
-					'To try it, click "Listen for test event" and then click "Test" on this webhook in Atendevet, under Profile → Settings → Integrations',
+					'To try it, click "Listen for test event" and then click "Test" on this webhook in Atendevet, under Perfil → Configurações → Integrações',
 				name: 'testNotice',
 				type: 'notice',
 				default: '',

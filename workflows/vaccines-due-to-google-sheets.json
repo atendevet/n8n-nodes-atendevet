@@ -11,7 +11,7 @@
         -180
       ],
       "parameters": {
-        "content": "## Vaccines due\nAtendevet checks the health records every day. Each vaccine due soon becomes a row in a sheet, ready for your team to call.\n\n1. Add your Atendevet API credential (key with *Receive event notifications*).\n2. Add your Google Sheets credential and choose the sheet. The first row needs the columns Pet, Vaccine, Due date, Legal guardian, Phone and Email.\n3. Activate the workflow.",
+        "content": "## Vaccines due\nAtendevet checks the health records every day. Each vaccine due soon becomes a row in a sheet, ready for your team to call.\n\n1. Add your Atendevet API credential (key with *Receber avisos de eventos*).\n2. Add your Google Sheets credential and choose the sheet. The first row needs the columns Pet, Vaccine, Due date, Legal guardian, Phone and Email.\n3. Activate the workflow.",
         "width": 360,
         "height": 300
       }

@@ -11,7 +11,7 @@
         -180
       ],
       "parameters": {
-        "content": "## Payments in Slack\nEvery payment recorded in Atendevet is announced in a Slack channel.\n\n1. Add your Atendevet API credential (key with *Receive event notifications*).\n2. Add your Slack credential and choose the channel.\n3. Activate the workflow.",
+        "content": "## Payments in Slack\nEvery payment recorded in Atendevet is announced in a Slack channel.\n\n1. Add your Atendevet API credential (key with *Receber avisos de eventos*).\n2. Add your Slack credential and choose the channel.\n3. Activate the workflow.",
         "width": 360,
         "height": 300
       }

@@ -11,7 +11,7 @@
         -180
       ],
       "parameters": {
-        "content": "## Appointments in your Google Calendar\nEvery appointment booked in Atendevet is copied to a Google Calendar.\n\n1. Add your Atendevet API credential (key with *Receive event notifications*).\n2. Add your Google Calendar credential and choose the calendar.\n3. Activate the workflow. Times come in the clinic's local time.",
+        "content": "## Appointments in your Google Calendar\nEvery appointment booked in Atendevet is copied to a Google Calendar.\n\n1. Add your Atendevet API credential (key with *Receber avisos de eventos*).\n2. Add your Google Calendar credential and choose the calendar.\n3. Activate the workflow. Times come in the clinic's local time.",
         "width": 360,
         "height": 300
       }

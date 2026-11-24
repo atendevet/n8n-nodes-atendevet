@@ -11,7 +11,7 @@
         -180
       ],
       "parameters": {
-        "content": "## Daily sales summary\nEvery morning, sends yesterday's sales of the clinic to a Telegram chat.\n\n1. Add your Atendevet API credential (key with *Consult financial indicators*).\n2. Add your Telegram credential and the chat ID.\n3. Change the time in **Every day at 7 AM** if you like.",
+        "content": "## Daily sales summary\nEvery morning, sends yesterday's sales of the clinic to a Telegram chat.\n\n1. Add your Atendevet API credential (key with *Consultar indicadores financeiros*).\n2. Add your Telegram credential and the chat ID.\n3. Change the time in **Every day at 7 AM** if you like.",
         "width": 360,
         "height": 300
       }

@@ -24,7 +24,7 @@ export class AtendevetApi implements ICredentialType {
 			required: true,
 			default: '',
 			description:
-				'Key created in Atendevet under Profile → Settings → Integrations. Choose "AI agent" so the key comes with the queries and the event notifications.',
+				'Key created in Atendevet under Perfil → Configurações → Integrações. Choose "Agente de IA" so the key comes with the queries and the event notifications.',
 		},
 		{
 			displayName: 'Base URL',

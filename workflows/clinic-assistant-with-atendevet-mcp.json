@@ -11,7 +11,7 @@
         -180
       ],
       "parameters": {
-        "content": "## Clinic assistant\nA chat agent that answers about the clinic using the official Atendevet MCP server: agenda, patients, hospitalization, health records and quotes. Records it proposes wait for approval in Atendevet.\n\n1. In **Atendevet MCP**, create a *Header Auth* credential: name `X-Api-Key`, value = your Atendevet key (choose *AI agent* when creating it).\n2. Add your OpenAI credential, or swap the model for another one.\n3. Open the chat and ask, for example, \"What is on the agenda today?\"",
+        "content": "## Clinic assistant\nA chat agent that answers about the clinic using the official Atendevet MCP server: agenda, patients, hospitalization, health records and quotes. Records it proposes wait for approval in Atendevet.\n\n1. In **Atendevet MCP**, create a *Header Auth* credential: name `X-Api-Key`, value = your Atendevet key (choose *Agente de IA* when creating it).\n2. Add your OpenAI credential, or swap the model for another one.\n3. Open the chat and ask, for example, \"What is on the agenda today?\"",
         "width": 360,
         "height": 340
       }
