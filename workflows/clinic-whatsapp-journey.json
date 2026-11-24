@@ -1,0 +1,199 @@
+{
+  "name": "Atendevet: clinic WhatsApp journey",
+  "nodes": [
+    {
+      "id": "c83cca1e-a2bd-5caa-8c1f-8e03a33fffa3",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -460,
+        -220
+      ],
+      "parameters": {
+        "content": "## Clinic WhatsApp journey\nThe clinic's campaign stages (Boas-vindas, Triagem, Agendamento) go out on your WhatsApp Business number, and the Atendevet assistant answers whoever writes back, following the clinic's journey.\n\n1. In Atendevet, open *Customizações › Assistente no WhatsApp*, choose *n8n ou outra plataforma* and create the key there (it comes with *Receber avisos de eventos* and *Responder pelo assistente no WhatsApp*).\n2. Add your **Atendevet API** credential to the trigger, and a **Header Auth** credential to *Ask the assistant*: name `X-Api-Key`, value the same key.\n3. Add your **WhatsApp** credential and choose the sender number in *Send stage* and *Send reply*.\n4. Activate the workflow, then turn on the assistant in Atendevet.\n\nA first message to someone who has not written in the last 24 hours needs a template approved by WhatsApp: switch *Send stage* to *Send Template* if that is your case. When the reply comes with `comARecepcao`, the clinic team is answering, and the workflow sends nothing.",
+        "width": 400,
+        "height": 520
+      }
+    },
+    {
+      "id": "c89bcf23-5612-52c2-a931-c9149df37ffe",
+      "name": "Atendevet Trigger",
+      "type": "@atendevet/n8n-nodes-atendevet.atendevetTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "events": [
+          "lead.campanha.boas-vindas",
+          "lead.campanha.triagem",
+          "lead.campanha.tratamento"
+        ]
+      },
+      "webhookId": "d3343087-9fe7-57b3-ab33-42fbc2860cf8"
+    },
+    {
+      "id": "7ae7c2e2-78a3-595b-befb-c155ec8aa10e",
+      "name": "Send stage",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        260,
+        0
+      ],
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "",
+        "recipientPhoneNumber": "={{ String($json.dados.lead.telefone || '').replace(/\\D/g, '').replace(/^(\\d{10,11})$/, '55$1') }}",
+        "textBody": "={{ $json.dados.campanha.mensagem }}",
+        "additionalFields": {}
+      }
+    },
+    {
+      "id": "2b2f904b-b89e-5e59-92ec-6e8ecd460dd4",
+      "name": "WhatsApp Trigger",
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        260
+      ],
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
+        "options": {
+          "messageStatusUpdates": []
+        }
+      },
+      "webhookId": "9fb053a6-3a66-5892-97e1-a039f1564ae2"
+    },
+    {
+      "id": "f032c677-1d6b-549a-aee5-9ebef4218d4a",
+      "name": "Ask the assistant",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        260,
+        260
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.atendevet.app/configuracao/assistente-whatsapp/responder",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ telefone: $json.messages[0].from, nome: $json.contacts?.[0]?.profile?.name || '', mensagem: $json.messages[0].type === 'text' ? $json.messages[0].text.body : '[áudio ou arquivo]' }) }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "1ab70c8e-dd99-56e3-b26c-9cbe354b9e79",
+      "name": "Has a reply?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        520,
+        260
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e1dcd773-4a76-5e8b-a882-e57a63051741",
+              "leftValue": "={{ $json.resposta }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "a5b351db-0ccc-5bb8-89c0-3f8d8c01d06a",
+      "name": "Send reply",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        780,
+        240
+      ],
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "",
+        "recipientPhoneNumber": "={{ $('WhatsApp Trigger').item.json.messages[0].from }}",
+        "textBody": "={{ $json.resposta }}",
+        "additionalFields": {}
+      }
+    }
+  ],
+  "connections": {
+    "Atendevet Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send stage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp Trigger": {
+      "main": [
+        [
+          {
+            "node": "Ask the assistant",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ask the assistant": {
+      "main": [
+        [
+          {
+            "node": "Has a reply?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has a reply?": {
+      "main": [
+        [
+          {
+            "node": "Send reply",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

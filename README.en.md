@@ -83,6 +83,7 @@ The [`workflows`](workflows) folder has ready-made workflows you can import in n
 - Vaccines due added to a Google Sheets follow-up list
 - Payment received announced in Slack
 - Clinic assistant: AI Agent with the Atendevet MCP server
+- Clinic WhatsApp journey: campaign stages sent on your WhatsApp Business number, with the Atendevet assistant answering replies
 
 ## Compatibility
 

@@ -83,6 +83,7 @@ A pasta [`workflows`](workflows) tem fluxos prontos para importar no n8n (copie 
 - Vacinas para vencer numa planilha do Google Planilhas, para a busca ativa
 - Pagamento recebido avisado no Slack
 - Assistente da clínica: agente de IA com o servidor MCP do Atendevet
+- Trilha da clínica no WhatsApp: as etapas da campanha saem pelo seu WhatsApp Business e o assistente do Atendevet responde quem escrever
 
 ## Compatibilidade
 
