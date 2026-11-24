@@ -1,0 +1,125 @@
+{
+  "name": "Atendevet: clinic assistant with the Atendevet MCP server",
+  "nodes": [
+    {
+      "id": "13f71ef6-9370-5ceb-bda2-6c7cd031d92d",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -420,
+        -180
+      ],
+      "parameters": {
+        "content": "## Clinic assistant\nA chat agent that answers about the clinic using the official Atendevet MCP server: agenda, patients, hospitalization, health records and quotes. Records it proposes wait for approval in Atendevet.\n\n1. In **Atendevet MCP**, create a *Header Auth* credential: name `X-Api-Key`, value = your Atendevet key (choose *AI agent* when creating it).\n2. Add your OpenAI credential, or swap the model for another one.\n3. Open the chat and ask, for example, \"What is on the agenda today?\"",
+        "width": 360,
+        "height": 340
+      }
+    },
+    {
+      "id": "36d10f10-eab4-591e-beb7-714708fd788b",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "options": {}
+      },
+      "webhookId": "a184918d-8ce4-5471-91c3-a6760878a57c"
+    },
+    {
+      "id": "beb94e9f-6f37-59dc-8ab8-e2949c3ffb02",
+      "name": "Clinic assistant",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        260,
+        0
+      ],
+      "parameters": {
+        "options": {
+          "systemMessage": "You help the team of a veterinary clinic that uses Atendevet. Use the Atendevet tools to answer with real clinic data, and say so when a tool returns no data. Anything you record is a proposal that someone at the clinic approves in Atendevet."
+        }
+      }
+    },
+    {
+      "id": "863b341b-d183-5584-9ab5-f4e415d6d9e0",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        160,
+        220
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "beff8c88-dd07-5d73-9c5a-fcc145ce44c8",
+      "name": "Atendevet MCP",
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.2,
+      "position": [
+        380,
+        220
+      ],
+      "parameters": {
+        "endpointUrl": "https://api.atendevet.app/mcp",
+        "serverTransport": "httpStreamable",
+        "authentication": "headerAuth",
+        "include": "all"
+      }
+    }
+  ],
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Clinic assistant",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Clinic assistant",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atendevet MCP": {
+      "ai_tool": [
+        [
+          {
+            "node": "Clinic assistant",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

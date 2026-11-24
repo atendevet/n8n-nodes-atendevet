@@ -1,0 +1,101 @@
+{
+  "name": "Atendevet: daily sales summary to Telegram",
+  "nodes": [
+    {
+      "id": "13f71ef6-9370-5ceb-bda2-6c7cd031d92d",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -420,
+        -180
+      ],
+      "parameters": {
+        "content": "## Daily sales summary\nEvery morning, sends yesterday's sales of the clinic to a Telegram chat.\n\n1. Add your Atendevet API credential (key with *Consult financial indicators*).\n2. Add your Telegram credential and the chat ID.\n3. Change the time in **Every day at 7 AM** if you like.",
+        "width": 360,
+        "height": 300
+      }
+    },
+    {
+      "id": "761e57f9-1682-5a4f-a020-93672f318264",
+      "name": "Every day at 7 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "bf51d075-a272-57e5-9584-fb5213d389a4",
+      "name": "Yesterday's sales",
+      "type": "@atendevet/n8n-nodes-atendevet.atendevet",
+      "typeVersion": 1,
+      "position": [
+        240,
+        0
+      ],
+      "parameters": {
+        "resource": "salesReport",
+        "operation": "getSummary",
+        "from": "={{ $today.minus({ days: 1 }).toISO() }}",
+        "to": "={{ $today.minus({ days: 1 }).toISO() }}"
+      }
+    },
+    {
+      "id": "854a6053-4759-5316-b291-342ac76cecea",
+      "name": "Send to Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        0
+      ],
+      "parameters": {
+        "chatId": "",
+        "additionalFields": {},
+        "text": "=Yesterday at the clinic: {{ $json.quantidade }} sales, R$ {{ $json.total.toFixed(2) }} in total, R$ {{ $json.pago.toFixed(2) }} paid and R$ {{ $json.emAberto.toFixed(2) }} open."
+      }
+    }
+  ],
+  "connections": {
+    "Every day at 7 AM": {
+      "main": [
+        [
+          {
+            "node": "Yesterday's sales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Yesterday's sales": {
+      "main": [
+        [
+          {
+            "node": "Send to Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

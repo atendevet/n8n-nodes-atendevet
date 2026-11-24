@@ -1,0 +1,93 @@
+{
+  "name": "Atendevet: vaccines due to a Google Sheets list",
+  "nodes": [
+    {
+      "id": "13f71ef6-9370-5ceb-bda2-6c7cd031d92d",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -420,
+        -180
+      ],
+      "parameters": {
+        "content": "## Vaccines due\nAtendevet checks the health records every day. Each vaccine due soon becomes a row in a sheet, ready for your team to call.\n\n1. Add your Atendevet API credential (key with *Receive event notifications*).\n2. Add your Google Sheets credential and choose the sheet. The first row needs the columns Pet, Vaccine, Due date, Legal guardian, Phone and Email.\n3. Activate the workflow.",
+        "width": 360,
+        "height": 300
+      }
+    },
+    {
+      "id": "516f2319-811c-5b11-8368-51ae641a5fec",
+      "name": "Atendevet Trigger",
+      "type": "@atendevet/n8n-nodes-atendevet.atendevetTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "events": [
+          "vacina.vencendo"
+        ]
+      },
+      "webhookId": "978ef72f-3c9d-5336-b8e9-e7fc872c1086"
+    },
+    {
+      "id": "576ce1e6-d537-59fd-a12c-f6ffd9f877b2",
+      "name": "Add to sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        260,
+        0
+      ],
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "matchingColumns": [],
+          "schema": [],
+          "value": {
+            "Pet": "={{ $json.dados.pet.nome }}",
+            "Vaccine": "={{ $json.dados.vacina }}",
+            "Due date": "={{ $json.dados.dataPrevista }}",
+            "Legal guardian": "={{ $json.dados.tutor.nome }}",
+            "Phone": "={{ $json.dados.tutor.telefone }}",
+            "Email": "={{ $json.dados.tutor.email }}"
+          }
+        },
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Atendevet Trigger": {
+      "main": [
+        [
+          {
+            "node": "Add to sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}

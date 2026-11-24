@@ -1,0 +1,76 @@
+{
+  "name": "Atendevet: payment received to Slack",
+  "nodes": [
+    {
+      "id": "13f71ef6-9370-5ceb-bda2-6c7cd031d92d",
+      "name": "Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -420,
+        -180
+      ],
+      "parameters": {
+        "content": "## Payments in Slack\nEvery payment recorded in Atendevet is announced in a Slack channel.\n\n1. Add your Atendevet API credential (key with *Receive event notifications*).\n2. Add your Slack credential and choose the channel.\n3. Activate the workflow.",
+        "width": 360,
+        "height": 300
+      }
+    },
+    {
+      "id": "516f2319-811c-5b11-8368-51ae641a5fec",
+      "name": "Atendevet Trigger",
+      "type": "@atendevet/n8n-nodes-atendevet.atendevetTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "events": [
+          "pagamento.recebido"
+        ]
+      },
+      "webhookId": "64ca4279-00da-5c6a-85a8-8d91a21766d0"
+    },
+    {
+      "id": "1f492a8d-d736-56fd-82e8-81b280e9ff2f",
+      "name": "Post in Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        260,
+        0
+      ],
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "otherOptions": {},
+        "text": "=Payment received: R$ {{ $json.dados.valor.toFixed(2) }} by {{ $json.dados.formaPagamento }} on sale {{ $json.dados.notaId }}. Still open on this sale: R$ {{ $json.dados.saldoRestante.toFixed(2) }}."
+      }
+    }
+  ],
+  "connections": {
+    "Atendevet Trigger": {
+      "main": [
+        [
+          {
+            "node": "Post in Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
