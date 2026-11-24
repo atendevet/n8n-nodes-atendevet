@@ -1,6 +1,6 @@
 # Atendevet nodes for n8n
 
-**English** · [Português](README.pt-BR.md)
+**English** · [Português](docs/README.pt-BR.md)
 
 Official [Atendevet](https://www.atendevet.com.br) nodes for n8n. Atendevet is the management platform for veterinary clinics, hospitals and home-visit vets in Brazil.
 

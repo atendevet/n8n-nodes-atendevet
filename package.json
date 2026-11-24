@@ -1,6 +1,6 @@
 {
 	"name": "@atendevet/n8n-nodes-atendevet",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"description": "Official Atendevet nodes for n8n: trigger workflows on veterinary clinic events (appointments, payments, vaccines, leads) and read patients, clients, sales, reports and CRM leads. AI agents through the Atendevet MCP server.",
 	"license": "MIT",
 	"homepage": "https://github.com/atendevet/n8n-nodes-atendevet#readme",

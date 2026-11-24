@@ -1,6 +1,6 @@
 # Nós do Atendevet para o n8n
 
-[English](README.md) · **Português**
+[English](../README.md) · **Português**
 
 Nós oficiais do [Atendevet](https://www.atendevet.com.br) para o n8n. O Atendevet é o sistema de gestão de clínicas, hospitais e médicos-veterinários de atendimento domiciliar.
 
@@ -76,7 +76,7 @@ O nó **Atendevet** pode entrar no mesmo agente como ferramenta.
 
 ## Fluxos prontos
 
-A pasta [`workflows`](workflows) tem fluxos prontos para importar no n8n (copie o conteúdo do arquivo e cole com Ctrl+V na tela de um fluxo novo):
+A pasta [`workflows`](../workflows) tem fluxos prontos para importar no n8n (copie o conteúdo do arquivo e cole com Ctrl+V na tela de um fluxo novo):
 
 - Resumo de vendas do dia no Telegram
 - Agendamento novo no Google Agenda
@@ -97,4 +97,4 @@ Testado com o n8n 2.49 e o Node.js 24.
 
 ## Licença
 
-[MIT](LICENSE)
+[MIT](../LICENSE)
